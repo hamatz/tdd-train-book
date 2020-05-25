@@ -11,9 +11,15 @@
     "url": "git+https://github.com/hamatz/tdd-train-book.git"
   },
   "author": "hamatz",
-  "license": "ISC",
+  "license": "APACHEV2",
   "bugs": {
     "url": "https://github.com/hamatz/tdd-train-book/issues"
   },
-  "homepage": "https://github.com/hamatz/tdd-train-book#readme"
+  "homepage": "https://github.com/hamatz/tdd-train-book#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "jest": "^26.0.1"
+  }
 }

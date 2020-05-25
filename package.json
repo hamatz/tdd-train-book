@@ -1,0 +1,25 @@
+{
+  "name": "tdd-train-book",
+  "version": "0.0.1",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hamatz/tdd-train-book.git"
+  },
+  "author": "hamatz",
+  "license": "APACHEV2",
+  "bugs": {
+    "url": "https://github.com/hamatz/tdd-train-book/issues"
+  },
+  "homepage": "https://github.com/hamatz/tdd-train-book#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "jest": "^26.0.1"
+  }
+}

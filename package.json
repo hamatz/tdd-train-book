@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "NODE_ENV=development jest"
+    "test": "NODE_ENV=development jest --coverage"
   },
   "repository": {
     "type": "git",

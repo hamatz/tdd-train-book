@@ -1,5 +1,5 @@
-function hello (a) {
-    return "Hello " + a;
-}
+const hello = (str) => {
+    return "Hello " + str;
+};
 
 module.exports = hello;

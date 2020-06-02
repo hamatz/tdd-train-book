@@ -20,7 +20,7 @@ TDDで作り始める。まずは形から。
 const TodoController = require("../../controllers/todo.controller");
 
 describe("TodoController.create", () => {
-  it("should have a createTodo function", () => {
+  it("should have a create function", () => {
     expect(typeof TodoController.create).toBe("function");
   });
 });

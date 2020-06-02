@@ -2,19 +2,19 @@
 
 TDDで作り始める。まずは形から。
 
-１：　controllers フォルダを作り、その配下にロジックとして todo.controller.js を置きます。
-２：　１のファイルに対となるテストとして todo.controller.spec.js を test/unit 配下に置きます。
+１：　controllers フォルダを作り、その配下にロジックとして todo.controller.js を置きます。  
+２：　１のファイルに対となるテストとして todo.controller.spec.js を test/unit 配下に置きます。  
 　　　まずはUnitテストから作っていきます。  
 ３：　まずは、簡単に１つのコントローラーと、それをテストするための１つのSpecファイルという構成ができました。
-　　　それでは、TDDとはどういうものなのか？実際にみていきましょう。
-４：　TDD。テスト駆動型設計というくらいですから、specとは仕様を記述するものですね。それでは、todo controllerはどのような仕様を満たすものでしょうか？　Todoのデータを扱うには、RESTの概念に置き換えると以下のような操作が必要となりますよね。
+　　　それでは、TDDとはどういうものなのか？実際にみていきましょう。  
+４：　TDD。テスト駆動型設計というくらいですから、specとは仕様を記述するものですね。それでは、todo controllerはどのような仕様を満たすものでしょうか？　Todoのデータを扱うには、RESTの概念に置き換えると以下のような操作が必要となりますよね。  
 
 　　・Create(C)
 　　・Read(R)
 　　・Update(U)
 　　・Delete(D)
 
-まずは、createから定義していきましょうか。create処理はどのような要件を満たすべきでしょう。難しいことを考える前に、まず、この処理は関数である、という大前提から始めてみましょう。
+まずは、createから定義していきましょうか。create処理はどのような要件を満たすべきでしょう。難しいことを考える前に、まず、この処理は関数である、という大前提から始めてみましょう。  
 
 ```javascript
 const TodoController = require("../../controllers/todo.controller");

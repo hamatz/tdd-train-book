@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/hamatz/tdd-train-book#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.9.17",
+    "node-mocks-http": "^1.8.1"
   },
   "devDependencies": {
     "jest": "^26.0.1"

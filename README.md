@@ -12,7 +12,7 @@ npm install mongoose --save
 それから次に、HTTP通信部分をモックしてくれる node-mocks-http を入れます。todo.controllerは、HTTP通信で取得したデータを受け取った後の部分の処理を担当するわけですので、その通信で受け取ったと想定されるデータを引き渡してくれる相手を擬似的に作り出してあげる必要があります。
 
 ```
-npm install node-mocks-http
+npm install node-mocks-http --save
 ```
 
 問題なくインストールできたでしょうか？それでは次に、TODOのデータモデルを定義しましょう。TODOデータはどのような情報を持っていれば良いでしょうか？

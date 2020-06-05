@@ -32,7 +32,7 @@ describe("TodoController.create", () => {
     expect(res._getData()).toStrictEqual(newTodo);
   });
   it("shoul handle model validation errors", async () => {
-    const errorMessage = { message: "Done property missing" };
+    const errorMessage = { message: "Status property missing" };
     const rejectedPromise = Promise.reject(errorMessage);
     TodoModel.create.mockReturnValue(rejectedPromise);
     await TodoController.create(req, res, next);

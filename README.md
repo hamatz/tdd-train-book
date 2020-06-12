@@ -49,5 +49,34 @@ const connect = async () => {
 module.exports = { connect };
 ```
 
+ところで我々が作っているのはWeb APIです。Controllerは作りましたが、クライアントからのリクエストを受け取るためにはRouterを用意し、受け口を用意してあげる必要があります。router/todo.routes.js を作りましょう。
+
+```javascript
+const express = require("express");
+const todoController = require("../controllers/todo.controller");
+const router = express.Router();
+
+router.post("/", todoController.create);
+
+module.exports = router;
+```
+
+そしてそのRouterを「app.js」に組み込みます。これでリクエスト受信までの流れは整いました。
+
+```javascript
+const express = require("express");
+const todoRoutes = require("./routes/todo.routes");
+const app = express();
+const mongodb = require("./mongodb/mongodb.connecter");
+
+mongodb.connect();
+
+app.use(express.json());
+
+app.use("/todo", todoRoutes);
+
+module.exports = app;
+```
+
 
 つづく

@@ -96,6 +96,44 @@ localhost:3000/todo/create
 
 にリクエストを送信することで、TODOデータの登録ができるようになります。
 
+それでは準備ができましたので、具体的にどのようなテストが必要になるか？を考えていきましょう。
+
+言うまでもなくまずは送られてきたデータが登録され、登録されたデータが返却されるという、当たり前のことができなければいけませんね。http通信でデータを受け取った状態をmockするために、新たに supertest を入れましょう。
+
+```
+npm install supertest --save-dev
+```
+
+jestと同じく、テストでしか利用しないパッケージですので、｀--save-dev`を使いました。
+
+これを利用するテストは tests/integration/todo.controller.int.test.js に配置します。データが登録された場合には、慣例に倣って status 201 を返すことにでもしておきましょうか。
+
+```javascript
+const request = require("supertest");
+const app = require("../../app");
+
+const newTodo = require("../mock-data/new-todo.json");
+
+const endpointUrl = "/todo/";
+
+describe(endpointUrl, () => {
+  it("POST " + endpointUrl, async () => {
+    const response = await request(app).post(endpointUrl).send(newTodo);
+    expect(response.statusCode).toBe(201);
+    expect(response.body.title).toBe(newTodo.title);
+    expect(response.body.description).toBe(newTodo.description);
+    expect(response.body.status).toBe(newTodo.status);
+  });
+});
+```
+
+さて、ここまででテストしてみましょうか。
+
+```
+ここにJestのテスト結果をペーストする
+```
+
+MongoDBの接続設定(特に環境変数の読み込みに注意しましょう）が間違っていなければ、問題なく動作したのではないかと思います。
 
 
 つづく

@@ -78,5 +78,24 @@ app.use("/todo", todoRoutes);
 module.exports = app;
 ```
 
+さらに、server.js を作成し、サーバーとして起動できるようにしましょう。
+
+```javascript
+onst app = require("./app");
+
+app.listen(3000, () => {
+  console.log("Server is now running!");
+});
+```
+
+これで、
+
+```
+localhost:3000/todo/create
+```
+
+にリクエストを送信することで、TODOデータの登録ができるようになります。
+
+
 
 つづく

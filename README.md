@@ -81,7 +81,7 @@ module.exports = app;
 さらに、server.js を作成し、サーバーとして起動できるようにしましょう。
 
 ```javascript
-onst app = require("./app");
+const app = require("./app");
 
 app.listen(3000, () => {
   console.log("Server is now running!");

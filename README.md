@@ -135,5 +135,65 @@ describe(endpointUrl, () => {
 
 MongoDBの接続設定(特に環境変数の読み込みに注意しましょう）が間違っていなければ、問題なく動作したのではないかと思います。
 
+では、他にはどのような項目をテストするといいでしょうか？ちょっと考えてみましょう。
+
+まず、送信するデータのフォーマットチェックが必要ですね。それでは、例えばどんなフォーマット違反があるでしょうか？
+
+1. 必須の項目がない
+2. 入力可能な文字数をオーバーしている
+
+あるいは逆に、
+
+3. 必須ではない項目が設定されていなくても保存ができる
+
+ということも確認できた方が良いでしょうね。では、必須の項目や文字数についてはどこで定義するものでしょうか？
+そうですね。データモデルでやるべきでしょう。
+
+例えばこのような形になるでしょうか？
+
+```javascript
+const mongoose = require("mongoose");
+const validate = require("mongoose-validator");
+
+const titleValidator = [
+    validate({
+        validator: 'isLength',
+        arguments: [1, 30],
+        message: 'Title should be between 1 and 30 characters'
+    })
+]
+
+const descValidator = [
+    validate({
+        validator: 'isLength',
+        arguments: [0, 250],
+        message: 'Description should be between 1 and 250 characters'
+    })
+]
+
+const TodoSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+    validate: titleValidator,
+  },
+  description: {
+    type: String,
+    required: false,
+    validate: descValidator,
+  },
+  status: {
+    type: String,
+    enum: ["OPEN", "IN_PROGRESS", "IN_REVIEW", "DONE"],
+    required: true,
+  },
+});
+
+const TodoModel = mongoose.model("Todo", TodoSchema);
+
+module.exports = TodoModel;
+```
+
+
 
 つづく

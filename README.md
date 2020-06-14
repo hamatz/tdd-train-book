@@ -141,10 +141,11 @@ MongoDBの接続設定(特に環境変数の読み込みに注意しましょう
 
 1. 必須の項目がない
 2. 入力可能な文字数をオーバーしている
+3. 定義されていないstatusが設定されている
 
 あるいは逆に、
 
-3. 必須ではない項目が設定されていなくても保存ができる
+4. 必須ではない項目が設定されていなくても保存ができる
 
 ということも確認できた方が良いでしょうね。では、必須の項目や文字数についてはどこで定義するものでしょうか？
 そうですね。データモデルでやるべきでしょう。
@@ -167,7 +168,7 @@ const descValidator = [
     validate({
         validator: 'isLength',
         arguments: [0, 250],
-        message: 'Description should be between 1 and 250 characters'
+        message: 'Description should be between 0 and 250 characters'
     })
 ]
 
@@ -193,6 +194,158 @@ const TodoModel = mongoose.model("Todo", TodoSchema);
 
 module.exports = TodoModel;
 ```
+
+必須の項目、例えばstatusが設定されていないデータを用意してみましょう。
+
+```json
+{
+    "title": "Missing done property",
+    "description": "ちゃんと登録エラーにできているかテスト"
+}
+```
+
+タイトルが無いデータもエラーにすべきですね。
+
+```json
+{
+    "title": "",
+    "description": "Titleの文字数が０だと登録できないテスト",
+    "status": "OPEN"
+}
+```
+statusに定義されていないデータをセットしている場合もダメですね。
+
+```json
+{
+    "title": "テストだよ３",
+    "description": "登録できてはいけないテストデータ",
+    "status": "FINISHED"
+} 
+```
+文字数制限の超過もみておきましょうか。
+
+```json
+{
+    "title": "Descriptionの文字数制限オーバー",
+    "description": "Descriptionの文字数制限オーバーDescriptionの文字数制限オーバーDescriptionの文字数制限オーバーDescriptionの文字数制限オーバーDescriptionの文字数制限オーバーDescriptionの文字数制限オーバーDescriptionの文字数制限オーバーDescriptionの文字数制限オーバーDescriptionの文字数制限オーバーDescriptionの文字数制限オーバーDescriptionの文字数制限オーバーDescriptionの文字数制限オーバーDescriptionの文字数制限オーバーDescriptionの文字数制限オーバーDescriptionの文字数制限オーバーDescriptionの文字数制限オーバーDescriptionの文字数制限オーバーDescriptionの文字数制限オーバー",
+    "status": "OPEN"
+}
+```
+
+```json
+{
+    "title": "タイトルだよタイトルだよタイトルだよタイトルだよタイトルだよタイトルだよタイトルだよ",
+    "description": "Titleの文字数制限オーバー",
+    "status": "OPEN"
+}
+```
+
+そして逆に、必須でないデータがちゃんと登録できているか？も確認しておきましょう。
+
+```json
+{
+    "title": "Descriptionはなくても登録できるかテスト",
+    "status": "OPEN"
+}
+```
+
+これらを全てチェックするとなると、追加すべきテストとしてはこのようになりますかね。
+
+```javascript
+const request = require("supertest");
+const app = require("../../app");
+
+const newTodo = require("../mock-data/new-todo.json");
+const errTodo = require("../mock-data/error-todo.json");
+const errTodo2 = require("../mock-data/error-todo2.json"); 
+const errTodo3 = require("../mock-data/error-todo3.json");
+const errTodo4 = require("../mock-data/error-todo4.json");
+const errTodo5 = require("../mock-data/error-todo5.json");
+const newTodo2 = require("../mock-data/new-todo2.json");
+
+const endpointUrl = "/todo/";
+
+describe(endpointUrl, () => {
+  it("POST " + endpointUrl, async () => {
+    const response = await request(app).post(endpointUrl).send(newTodo);
+    expect(response.statusCode).toBe(201);
+    expect(response.body.title).toBe(newTodo.title);
+    expect(response.body.description).toBe(newTodo.description);
+    expect(response.body.status).toBe(newTodo.status);
+  });
+    it(
+    "should return error 500 on malformed data with POST" + endpointUrl,
+    async () => {
+      const response = await request(app).post(endpointUrl).send(errTodo);
+      expect(response.statusCode).toBe(500);
+      expect(response.body).toStrictEqual({
+        "message": "Todo validation failed: status: Path `status` is required."
+      });
+    }
+  );
+  it(
+    "should return error 500 on malformed data of status property with POST" + endpointUrl,
+    async () => {
+      const response = await request(app).post(endpointUrl).send(errTodo2);
+      expect(response.statusCode).toBe(500);
+      expect(response.body).toStrictEqual({
+        "message": "Todo validation failed: status: `FINISHED` is not a valid enum value for path `status`."
+      });
+    }
+  );
+  it(
+    "should return error 500 on malformed data in title property with POST" + endpointUrl,
+    async () => {
+      const response = await request(app).post(endpointUrl).send(errTodo3);
+      expect(response.statusCode).toBe(500);
+      expect(response.body).toStrictEqual({
+        "message": "Todo validation failed: title: Path `title` is required."
+      });
+    }
+  );
+  it(
+    "should return error 500 on malformed data in description property  (length too much) with POST" + endpointUrl,
+    async () => {
+      const response = await request(app).post(endpointUrl).send(errTodo4);
+      expect(response.statusCode).toBe(500);
+      expect(response.body).toStrictEqual({
+        "message": "Todo validation failed: description: Description should be between 1 and 250 characters"
+      });
+    }
+  );
+  it(
+    "should return error 500 on malformed data in title property (length too much) with POST" + endpointUrl,
+    async () => {
+      const response = await request(app).post(endpointUrl).send(errTodo5);
+      expect(response.statusCode).toBe(500);
+      expect(response.body).toStrictEqual({
+        "message":  "Todo validation failed: title: Title should be between 1 and 30 characters"
+      });
+    }
+  );
+  it("should succcess even when data does not have description property with POST " + endpointUrl, async () => {
+    const response = await request(app).post(endpointUrl).send(newTodo2);
+    expect(response.statusCode).toBe(201);
+    expect(response.body.title).toBe(newTodo2.title);
+    expect(response.body.status).toBe(newTodo2.status);
+  });
+});
+```
+
+さて、テストを実行してみましょう。
+
+```
+ここに実行結果をペーストする
+```
+
+実際には想定するエラーメッセージが違ったりして、テストを実態に合わせるなどの作業をしながらの完成になる形が多いかと思いますが、流れとしては見えたのではないかと思います。
+
+さて、ここまでで終わってもいいのですが、もう少し難しいデータまで広げてみましょう。
+
+せっかく扱っているテーマがTODOですし、締切日など時間の概念を持たせてみるのはどうでしょうか？今までのテスト用データを作っていて想像されたかもしれませんが、本来テストとはテストの都度書き直す必要なく、同じものが動作するのが当然であるべきです。
+
+しかし、例えば「締切日が今より未来の日付であれば登録可能」という項目をチェックするために、常にOKとなるデータはどのように用意することができるでしょうか？
+
 
 
 

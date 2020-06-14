@@ -195,6 +195,4 @@ module.exports = TodoModel;
 ```
 
 
-
-
 つづく

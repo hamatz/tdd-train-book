@@ -13,7 +13,7 @@ const descValidator = [
     validate({
         validator: 'isLength',
         arguments: [0, 250],
-        message: 'Description should be between 1 and 250 characters'
+        message: 'Description should be between 0 and 250 characters'
     })
 ]
 

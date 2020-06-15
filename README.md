@@ -366,5 +366,4 @@ describe(endpointUrl, () => {
 
 
 
-
 つづく

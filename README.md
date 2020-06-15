@@ -49,6 +49,23 @@ const connect = async () => {
 module.exports = { connect };
 ```
 
+ちなみに、環境変数を使う場合には dotenvなどを利用するのが一般的みたいですが、jestで使うだけならば他の方法もあります。
+
+jest.config.js でセットアップファイルの場所を宣言し、
+
+```javascript
+module.exports = {
+  testEnvironment: "node",
+  setupFiles: ["<rootDir>/jest/setEnvVars.js"]
+};
+```
+
+そこで示すファイル(jest/setEnvVars.js)で環境変数を宣言します。
+
+```javascript
+process.env.MONGO_ATLAS_PW = "this_is_test_purpose_value_do_not_use";
+```
+
 ところで我々が作っているのはWeb APIです。Controllerは作りましたが、クライアントからのリクエストを受け取るためにはRouterを用意し、受け口を用意してあげる必要があります。router/todo.routes.js を作りましょう。
 
 ```javascript

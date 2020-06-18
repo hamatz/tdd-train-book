@@ -1,1 +1,1 @@
-process.env.MONGO_ATLAS_PW = "deep001moon";
+process.env.MONGO_ATLAS_PW = "this_is_test_purpose_value_do_not_use";

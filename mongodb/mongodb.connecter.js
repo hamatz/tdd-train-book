@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const debug = require("debug")("tdd-train:mongodb-connecter");
 
 const connect = async () => {
   try {
@@ -9,8 +10,8 @@ const connect = async () => {
       { useUnifiedTopology: true,  useNewUrlParser: true  } 
     );
   } catch (err) {
-    console.error("Error connecting to mongodb");
-    console.error(err);
+    debug("Error connectiong to mongodb");
+    debug(err);
   }
 };
 

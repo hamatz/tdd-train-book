@@ -383,6 +383,7 @@ describe(endpointUrl, () => {
 ・期日になるとメールで教えてくれる  
 
 （メモ）
+
 + 書くこと  
 ・PostmanによるE2Eテストの話  
 ・カバレッジをとりあえず100%にしておくべく、mongodb.connecter にもテストを書く  
@@ -403,5 +404,6 @@ describe("mongoDB related", () => {
   });
 });
 ```
+
 
 つづく

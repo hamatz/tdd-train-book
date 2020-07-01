@@ -384,6 +384,7 @@ describe(endpointUrl, () => {
 
 （メモ）
 
+
 + 書くこと  
 ・PostmanによるE2Eテストの話  
 ・カバレッジをとりあえず100%にしておくべく、mongodb.connecter にもテストを書く  

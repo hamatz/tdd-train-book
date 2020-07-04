@@ -388,6 +388,10 @@ describe(endpointUrl, () => {
 + 書くこと  
 ・PostmanによるE2Eテストの話  
 
+- Postmanのダウンロード＆インストール
+- Postmanを使って色々なデータをPostしながらレスポンスの中身を確認していく
+- リクエストは１つ１つ保存できるから次に同じ試験するときは楽チンだよね
+
 
 ```javascript
 const mongodbConnecter = require("../../mongodb/mongodb.connecter");

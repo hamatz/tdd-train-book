@@ -393,6 +393,7 @@ describe(endpointUrl, () => {
 
 - Postmanのダウンロード＆インストール
 
+
 まずは以下のサイトからPostmanをダウンロードしましょう。
 
 https://www.postman.com/
@@ -403,7 +404,6 @@ https://iridge-tech.hatenablog.com/entry/2019/12/06/120000
 
 - Postmanを使って色々なデータをPostしながらレスポンスの中身を確認していく
 - リクエストは１つ１つ保存できるから次に同じ試験するときは楽チンだよね
-
 
 せっかくテストの勉強をしているので、どうせならカバレッジは100%を目指しておきましょうか。MongoDB Connecterも例外処理を確認するようにしておけばバッチリです。
 

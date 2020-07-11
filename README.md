@@ -397,6 +397,10 @@ describe(endpointUrl, () => {
 
 https://www.postman.com/
 
+Postmanの基本的な使い方についてはこの辺の記事が参考になると思います。
+https://iridge-tech.hatenablog.com/entry/2019/12/06/120000
+
+
 - Postmanを使って色々なデータをPostしながらレスポンスの中身を確認していく
 - リクエストは１つ１つ保存できるから次に同じ試験するときは楽チンだよね
 

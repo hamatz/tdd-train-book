@@ -424,7 +424,11 @@ https://iridge-tech.hatenablog.com/entry/2019/12/06/120000
 
 自動テストで使ったデータをPostmanを経由して実際に送信してみましょう。
 
-- リクエストは１つ１つ保存できるから次に同じ試験するときは楽チンだよね
+同様なチェックが、以下のようなChrome Pluginを使うことでも実施可能です。
+
+https://chrome.google.com/webstore/detail/talend-api-tester-free-ed/aejoelaoggembcahagimdiliamlcdmfm
+
+ただ、Postmanは実施したリクエストを１つ１つ保存できるので、より便利だと思います。
 
 せっかくテストの勉強をしているので、どうせならカバレッジは100%を目指しておきましょうか。MongoDB Connecterも例外処理を確認するようにしておけばバッチリです。
 

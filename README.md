@@ -66,7 +66,7 @@ module.exports = {
 process.env.MONGO_ATLAS_PW = "this_is_test_purpose_value_do_not_use";
 ```
 
-ところで我々が作っているのはWeb APIです。Controllerは作りましたが、クライアントからのリクエストを受け取るためにはRouterを用意し、受け口を用意してあげる必要があります。router/todo.routes.js を作りましょう。
+ところで我々が作っているのはWeb APIです。Controllerは作りましたが、クライアントからのリクエストを受け取るためにはRouterを用意し、受け口を作ってあげる必要があります。router/todo.routes.js を作りましょう。
 
 ```javascript
 const express = require("express");
